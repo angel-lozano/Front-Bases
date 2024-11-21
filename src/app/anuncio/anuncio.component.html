@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anuncio</title>
+</head>
+<body>
+
+<app-menu></app-menu>
+<br>
+
+
+<br>
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+  <div class="cont-menu">
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/anuncio">Anuncios</a>
+      <a href="/otro">Otro</a>
+    </nav>
+    <label for="btn-menu">X</label>
+  </div>
+</div>
+
+<div class="container-table">
+  <span class="welcome-message">Anuncios</span>
+  <button (click)="toggleFormularioAgregar()" class="btn btn-success">Agregar Anuncio</button>
+
+  <!-- Formulario para agregar un nuevo anuncio -->
+  <div *ngIf="mostrarFormularioAgregar" class="formulario-agregar">
+    <form #formAgregar="ngForm" (ngSubmit)="agregarAnuncio(formAgregar)">
+      <label>Texto:</label>
+      <textarea [(ngModel)]="nuevoAnuncio.texto" name="texto" required></textarea>
+
+      <label>Modelo:</label>
+      <input type="text" [(ngModel)]="nuevoAnuncio.modelo" name="modelo" required>
+
+      <label>Marca:</label>
+      <input type="text" [(ngModel)]="nuevoAnuncio.marca" name="marca" required>
+
+      <label>Imagen:</label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*">
+
+      <button type="submit" [disabled]="!formAgregar.valid" class="btn btn-secondary">Guardar</button>
+      <button type="button" (click)="toggleFormularioAgregar()" class="btn btn-danger">Cancelar</button>
+    </form>
+  </div>
+
+  <!-- Formulario para actualizar un anuncio -->
+  <div *ngIf="mostrarFormularioActualizar" class="formulario-actualizar">
+    <form #formActualizar="ngForm" (ngSubmit)="actualizarAnuncio(formActualizar)">
+      <label>Texto:</label>
+      <textarea [(ngModel)]="anuncioParaActualizar.texto" name="texto" required></textarea>
+
+      <label>Modelo:</label>
+      <input type="text" [(ngModel)]="anuncioParaActualizar.modelo" name="modelo" required>
+
+      <label>Marca:</label>
+      <input type="text" [(ngModel)]="anuncioParaActualizar.marca" name="marca" required>
+
+      <label>Imagen:</label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*">
+
+      <div *ngIf="anuncioParaActualizar.imagen">
+        <p>Vista previa de la imagen:</p>
+        <img [src]="anuncioParaActualizar.imagenPreview" alt="Vista previa" style="width: 100px; height: 100px;">
+      </div>
+
+      <button type="submit" [disabled]="!formActualizar.valid" class="btn btn-warning">Actualizar</button>
+      <button type="button" (click)="mostrarFormularioActualizar = false; anuncioParaActualizar = null;" class="btn btn-danger">Cancelar</button>
+    </form>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID Anuncio</th>
+        <th>Texto</th>
+        <th>Modelo</th>
+        <th>Marca</th>
+        <th>Imagen</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let anuncio of anuncios">
+        <td>{{ anuncio.idanuncio }}</td>
+        <td>{{ anuncio.texto }}</td>
+        <td>{{ anuncio.modelo }}</td>
+        <td>{{ anuncio.marca }}</td>
+        <td>
+          <img [src]="anuncio.imagen ? 'data:image/jpeg;base64,' + anuncio.imagen : ''" alt="Imagen del anuncio" style="width: 50px; height: 50px;">
+        </td>
+        <td>
+          <button (click)="cargarAnuncioParaActualizar(anuncio)" class="btn btn-warning" style="margin-right: 10px;">Actualizar</button>
+          <button (click)="eliminarAnuncio(anuncio.idanuncio)" class="btn btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

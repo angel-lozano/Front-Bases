@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehiculos</title>
+</head>
+<body>
+
+<app-menu></app-menu>
+
+<br>
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+  <div class="cont-menu">
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/vehiculo">Vehículos</a>
+      <a href="/otro">Otro</a>
+    </nav>
+    <label for="btn-menu">X</label>
+  </div>
+</div>
+
+<div class="container-table">
+  <span class="welcome-message">Vehículos</span>
+  <button (click)="toggleFormularioAgregar()" class="btn btn-success">Agregar Vehículo</button>
+
+  <!-- Formulario para agregar un nuevo vehículo -->
+  <div *ngIf="mostrarFormularioAgregar" class="formulario-agregar">
+    <form #formAgregar="ngForm" (ngSubmit)="agregarVehiculo()">
+      <label>Modelo:</label>
+      <input type="text" [(ngModel)]="nuevoVehiculo.modelo" name="modelo" required>
+
+      <label>Marca:</label>
+      <input type="text" [(ngModel)]="nuevoVehiculo.marca" name="marca">
+
+      <label>Color:</label>
+      <input type="text" [(ngModel)]="nuevoVehiculo.color" name="color">
+
+      <label>Matrícula:</label>
+      <input type="text" [(ngModel)]="nuevoVehiculo.matricula" name="matricula" required>
+
+      <label>Fecha Inicio:</label>
+      <input type="date" [(ngModel)]="nuevoVehiculo.fechainicio" name="fechainicio">
+
+      <label>Fecha Fin:</label>
+      <input type="date" [(ngModel)]="nuevoVehiculo.fechafin" name="fechafin">
+
+      <button type="submit" [disabled]="!formAgregar.valid" class="btn btn-secondary">Guardar</button>
+      <button type="button" (click)="toggleFormularioAgregar()" class="btn btn-danger">Cancelar</button>
+    </form>
+  </div>
+
+  <!-- Formulario para actualizar un vehículo -->
+  <div *ngIf="mostrarFormularioActualizar" class="formulario-actualizar">
+    <form #formActualizar="ngForm" (ngSubmit)="actualizarVehiculo()">
+      <label>Modelo:</label>
+      <input type="text" [(ngModel)]="vehiculoParaActualizar.modelo" name="modelo" required>
+
+      <label>Marca:</label>
+      <input type="text" [(ngModel)]="vehiculoParaActualizar.marca" name="marca">
+
+      <label>Color:</label>
+      <input type="text" [(ngModel)]="vehiculoParaActualizar.color" name="color">
+
+      <label>Matrícula:</label>
+      <input type="text" [(ngModel)]="vehiculoParaActualizar.matricula" name="matricula" required>
+
+      <label>Fecha Inicio:</label>
+      <input type="date" [(ngModel)]="vehiculoParaActualizar.fechainicio" name="fechainicio">
+
+      <label>Fecha Fin:</label>
+      <input type="date" [(ngModel)]="vehiculoParaActualizar.fechafin" name="fechafin">
+
+      <button type="submit" [disabled]="!formActualizar.valid" class="btn btn-warning">Actualizar</button>
+      <button type="button" (click)="mostrarFormularioActualizar = false; vehiculoParaActualizar = null;" class="btn btn-danger">Cancelar</button>
+    </form>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Modelo</th>
+        <th>Marca</th>
+        <th>Color</th>
+        <th>Matrícula</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vehiculo of vehiculos">
+        <td>{{ vehiculo.idvehiculo }}</td>
+        <td>{{ vehiculo.modelo }}</td>
+        <td>{{ vehiculo.marca }}</td>
+        <td>{{ vehiculo.color }}</td>
+        <td>{{ vehiculo.matricula }}</td>
+        <td>{{ vehiculo.fechainicio | date: 'short' }}</td>
+        <td>{{ vehiculo.fechafin | date: 'short' }}</td>
+        <td>
+          <button (click)="cargarVehiculoParaActualizar(vehiculo)" class="btn btn-warning" style="margin-right: 10px;">Actualizar</button>
+          <button (click)="eliminarVehiculo(vehiculo.idvehiculo)" class="btn btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+</body>
+</html>

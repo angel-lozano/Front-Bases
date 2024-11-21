@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Montserrat+Alternates|Poppins&display=swap');
+
+/* Reseteo de márgenes, padding y box-sizing para asegurar consistencia en los elementos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat Alternates', sans-serif; /* Fuente predeterminada */
+}
+
+/* Estilo de fondo para el cuerpo de la página */
+body {
+    background: linear-gradient(135deg, #71b7e6, #9b59b6); /* Degradado en diagonal */
+    background-size: 100vw 100vh; /* Ocupa todo el ancho y alto de la ventana */
+    background-repeat: no-repeat; /* Sin repetición de la imagen de fondo */
+}
+
+/* Capa de fondo fija para crear el efecto visual */
+.capa {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6); /* Degradado en diagonal */
+    z-index: -1; /* Envía la capa al fondo */
+    top: 0;
+    left: 0;
+}
+
+/* Estilo del encabezado (header) */
+.header {
+    width: 100%;
+    height: 100px;
+    position: fixed; /* Fijo en la parte superior */
+    top: 0;
+    left: 0;
+}
+
+/* Contenedor que ajusta el ancho del contenido principal */
+.container {
+    width: 90%;
+    max-width: 1200px; /* Máximo ancho de 1200px */
+    margin: auto; /* Centra el contenedor */
+}
+
+/* Botón de menú y logotipo dentro del contenedor */
+.container .btn-menu, .logo {
+    float: left; /* Se alinean a la izquierda */
+    line-height: 100px; /* Centrado verticalmente */
+}
+
+/* Estilos del botón de menú */
+.container .btn-menu label {
+    color: #fff; /* Color de texto blanco */
+    font-size: 25px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar sobre él */
+}
+
+/* Estilos del logotipo */
+.logo h1 {
+    color: #fff;
+    font-weight: 400;
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+/* Menú principal */
+.container .menu {
+    float: right; /* Se alinea a la derecha */
+    line-height: 100px; /* Centrado verticalmente */
+}
+
+/* Enlaces del menú principal */
+.container .menu a {
+    display: inline-block;
+    padding: 15px;
+    line-height: normal;
+    text-decoration: none; /* Sin subrayado */
+    color: #fff; /* Color del texto blanco */
+    transition: all 0.3s ease; /* Efecto de transición suave */
+    border-bottom: 2px solid transparent; /* Borde inferior invisible */
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+/* Efecto hover para enlaces del menú principal */
+.container .menu a:hover {
+    border-bottom: 2px solid #c7c7c7; /* Aparece un borde inferior al pasar el ratón */
+    padding-bottom: 5px;
+}
+
+/* Checkbox que controla el menú */
+#btn-menu {
+    display: none; /* Oculto por defecto */
+}
+
+/* Contenedor general del menú lateral */
+.container-menu {
+    position: absolute;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transition: all 500ms ease; /* Transición suave al mostrar/ocultar */
+    opacity: 0; /* Invisible por defecto */
+    visibility: hidden; /* Oculto por defecto */
+}
+
+/* Menú lateral visible cuando el checkbox está marcado */
+#btn-menu:checked ~ .container-menu {
+    opacity: 1; /* Visible */
+    visibility: visible; /* Se muestra */
+}
+
+/* Contenedor del contenido del menú lateral */
+.cont-menu {
+    width: 100%;
+    max-width: 250px; /* Ancho máximo de 250px */
+    background: linear-gradient(135deg, #71b7e6, #9b59b6); /* Degradado */
+    height: 100vh;
+    position: relative;
+    transition: all 500ms ease; /* Transición suave */
+    transform: translateX(-100%); /* Fuera de la pantalla por defecto */
+}
+
+/* Muestra el menú lateral cuando el checkbox está marcado */
+#btn-menu:checked ~ .container-menu .cont-menu {
+    transform: translateX(0%); /* Desplazado dentro de la pantalla */
+}
+
+/* Navegación dentro del menú lateral */
+.cont-menu nav {
+    transform: translateY(15%); /* Desplaza hacia abajo el contenido */
+}
+
+/* Enlaces dentro del menú lateral */
+.cont-menu nav a {
+    display: block; /* Cada enlace en una nueva línea */
+    text-decoration: none; /* Sin subrayado */
+    padding: 20px;
+    color: #c7c7c7; /* Color de texto gris claro */
+    border-left: 5px solid transparent; /* Borde izquierdo invisible */
+    transition: all 400ms ease; /* Transición suave */
+}
+
+/* Efecto hover para los enlaces del menú lateral */
+.cont-menu nav a:hover {
+    border-left: 5px solid #c7c7c7; /* Borde izquierdo visible al pasar el ratón */
+    background: linear-gradient(135deg, #71b7e6, #9b59b6); /* Fondo degradado */
+}
+
+/* Botón de cierre en el menú lateral */
+.cont-menu label {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    font-size: 30px;
+    color: #fff; /* Color de texto blanco */
+    cursor: pointer; /* Cambia el cursor al pasar sobre él */
+}
+
+/* Estilo para los submenús */
+.submenu {
+    display: none; /* Ocultos por defecto */
+    list-style-type: none; /* Sin viñetas */
+    padding-left: 1rem; /* Sangría */
+}
+
+/* Estilo para los títulos principales del menú lateral */
+.menu-item b {
+    cursor: pointer; /* Cursor interactivo */
+    color: #fff; /* Color blanco */
+    display: block;
+    padding: 10px 0; /* Espaciado vertical */
+}
+
+/* Agregar estilo para mostrar el submenú activo */
+.menu-item.active .submenu {
+    display: block; /* Muestra el submenú */
+}
+
+
+/* Mensaje de bienvenida personalizado */
+.welcome-message {
+  display: block; /* Elemento de bloque */
+  text-align: center; /* Centrado horizontal */
+  margin-top: 20px; /* Margen superior */
+  font-size: 24px; /* Tamaño de fuente */
+  color: #dce65d; /* Color de texto amarillo */
+  font-weight: bold; /* Texto en negrita */
+  font-family: 'Arial', sans-serif; /* Fuente alternativa */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra para el texto */
+  letter-spacing: 1px; /* Espaciado entre letras */
+}

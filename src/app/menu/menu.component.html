@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú</title>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+        <div class="btn-menu">
+            <label for="btn-menu">☰</label>
+        </div>
+        <div class="logo">
+            <h1>Menú</h1>
+        </div>
+
+        <span class="welcome-message">¡Bienvenido{{administrador.nombre}} {{administrador.apellido}}!</span>
+
+        <nav class="menu">
+            <a href="/menu">Inicio</a>
+            <button type="button" class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
+        </nav>
+    </div>
+</header>
+<div class="capa"></div>
+
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+    <div class="cont-menu">
+        <nav>
+            <div class="menu-item">
+                <a href="/menu"><b>Inicio</b></a>
+            </div>
+            <div class="menu-item" [class.active]="activeSubmenu === 'parametros'">
+                <b (click)="toggleSubmenu('parametros')">Usuario</b>
+                <ul class="submenu" *ngIf="activeSubmenu === 'parametros'">
+                    <li><a href="/usuario">Usuarios</a></li>
+                    <li><a href="/anuncio">Anuncios</a></li>
+                </ul>
+            </div>
+            <div class="menu-item" [class.active]="activeSubmenu === 'gestion'">
+                <b (click)="toggleSubmenu('gestion')">Vehiculo</b>
+                <ul class="submenu" *ngIf="activeSubmenu === 'gestion'">
+                    <li><a href="/vehiculo">Vehiculos</a></li>
+
+                </ul>
+            </div>
+        </nav>
+        <label for="btn-menu">✖️</label>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuario</title>
+</head>
+<body>
+
+<app-menu></app-menu>
+
+<br>
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+  <div class="cont-menu">
+    <nav>
+      <a href="/">Inicio</a>
+      <a href="/usuario">Usuarios</a>
+      <a href="/otro">Otro</a>
+    </nav>
+    <label for="btn-menu">X</label>
+  </div>
+</div>
+
+<div class="container-table">
+  <span class="welcome-message">Usuarios</span>
+  <button (click)="toggleFormularioAgregar()" class="btn btn-success">Agregar Usuario</button>
+
+  <!-- Formulario para agregar un nuevo usuario -->
+  <div *ngIf="mostrarFormularioAgregar" class="formulario-agregar">
+    <form #formAgregar="ngForm" (ngSubmit)="agregarUsuario()">
+      <label>Usuario:</label>
+      <input type="text" [(ngModel)]="nuevoUsuario.usuario" name="usuario" required>
+
+      <label>Nombre:</label>
+      <input type="text" [(ngModel)]="nuevoUsuario.nombre" name="nombre">
+
+      <label>Apellido:</label>
+      <input type="text" [(ngModel)]="nuevoUsuario.apellido" name="apellido">
+
+      <label>Contraseña:</label>
+      <input type="password" [(ngModel)]="nuevoUsuario.password" name="password" required>
+
+      <label>Teléfono:</label>
+      <input type="text" [(ngModel)]="nuevoUsuario.telefono" name="telefono">
+
+      <label>DPI:</label>
+      <input type="text" [(ngModel)]="nuevoUsuario.dpi" name="dpi">
+
+      <button type="submit" [disabled]="!formAgregar.valid" class="btn btn-secondary">Guardar</button>
+      <button type="button" (click)="toggleFormularioAgregar()" class="btn btn-danger">Cancelar</button>
+    </form>
+  </div>
+
+  <!-- Formulario para actualizar un usuario -->
+  <div *ngIf="mostrarFormularioActualizar" class="formulario-actualizar">
+    <form #formActualizar="ngForm" (ngSubmit)="actualizarUsuario()">
+      <label>Usuario:</label>
+      <input type="text" [(ngModel)]="usuarioParaActualizar.usuario" name="usuario" disabled>
+
+      <label>Nombre:</label>
+      <input type="text" [(ngModel)]="usuarioParaActualizar.nombre" name="nombre">
+
+      <label>Apellido:</label>
+      <input type="text" [(ngModel)]="usuarioParaActualizar.apellido" name="apellido">
+
+      <label>Contraseña:</label>
+      <input type="password" [(ngModel)]="usuarioParaActualizar.password" name="password">
+
+      <label>Teléfono:</label>
+      <input type="text" [(ngModel)]="usuarioParaActualizar.telefono" name="telefono">
+
+      <label>DPI:</label>
+      <input type="text" [(ngModel)]="usuarioParaActualizar.dpi" name="dpi">
+
+      <button type="submit" [disabled]="!formActualizar.valid" class="btn btn-warning">Actualizar</button>
+      <button type="button" (click)="mostrarFormularioActualizar = false; usuarioParaActualizar = null;" class="btn btn-danger">Cancelar</button>
+    </form>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Teléfono</th>
+        <th>DPI</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>{{ usuario.usuario }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.apellido }}</td>
+        <td>{{ usuario.telefono }}</td>
+        <td>{{ usuario.dpi }}</td>
+        <td>
+          <button (click)="cargarUsuarioParaActualizar(usuario)" class="btn btn-warning" style="margin-right: 10px;">Actualizar</button>
+          <button (click)="eliminarUsuario(usuario.usuario)" class="btn btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+</body>
+</html>
